@@ -24,7 +24,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee updateEmp(Long empId, Employee empDetails) {
         Employee emp = employeeRepository.getOne(empId);
-        emp.setUpdatedAt(new Timestamp(new Date().getTime()));
+      /*  emp.setAddress(empDetails.getAddress());
+        emp.setAge(empDetails.getAge());
+        emp.setDept(empDetails.getDept());
+        emp.setName(empDetails.getName());*/
+        empDetails.setUpdatedAt(new Timestamp(new Date().getTime()));
 		return employeeRepository.saveAndFlush(empDetails);
 	}
 	@Override
