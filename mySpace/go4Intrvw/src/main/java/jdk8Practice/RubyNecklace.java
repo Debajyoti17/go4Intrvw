@@ -47,7 +47,7 @@ yellow blue  | yellow red
 green green  | green yellow
 */
 public class RubyNecklace {
-	static int bCount = 1, rCount = 1, yCount = 1, gCount = 0;
+	static int bCount = 0, rCount = 0, yCount = 2, gCount = 2;
 	static String maxStr = "", colour = "";
 
 	public static void main(String[] args) {
@@ -68,7 +68,7 @@ public class RubyNecklace {
 
 	private static String appendRule(String start) {
 
-		if ((start.endsWith("Y") && yCount != 0 && bCount == 0 && rCount == 0 && gCount == 0) || (start.endsWith("R") && rCount != 0 && yCount == 0 && bCount == 0 && gCount == 0))
+		if (((start.endsWith("Y") || start.endsWith("B")) && yCount != 0 && bCount == 0 && rCount == 0) || ((start.endsWith("R") || start.endsWith("G")) && rCount != 0 && yCount == 0 && gCount == 0))
 			return start;
 
 		if (start.endsWith("B") || start.endsWith("Y")) {
