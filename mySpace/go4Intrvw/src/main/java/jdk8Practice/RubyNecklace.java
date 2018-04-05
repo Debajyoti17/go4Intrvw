@@ -42,34 +42,34 @@ START:	Blue blue   |  blue red
 
 START:	red green  |  red yellow
 
-
-yellow blue  | yellow red
 green green  | green yellow
+yellow blue  | yellow red
+
 */
 public class RubyNecklace {
-	static int bCount = 0, rCount = 0, yCount = 2, gCount = 2;
+	static int bCount = 0, rCount = 2, yCount = 2, gCount = 0;
 	static String maxStr = "", colour = "";
 
 	public static void main(String[] args) {
-		// System.out.println(maxStr.length());
-
 		String start = "";
 		if (bCount != 0 || rCount != 0 || yCount != 0 || gCount != 0)
 			start = startInput(start, colour);
 		System.out.println("start : " + start);
+		maxStr = start;
 		String finalStr = appendRule(start);
-
-		if (maxStr.length() <= finalStr.length())
-			maxStr = finalStr;
-
-		System.out.println("Output : " + maxStr);
-		System.out.println("  String length-------: " + maxStr.length());
+		
+		System.out.println("Output : " + finalStr);
+		System.out.println("  String length-------: " + finalStr.length());
 	}
 
 	private static String appendRule(String start) {
+		
+		if ((start.endsWith("B") && yCount != 0 && bCount == 0 && rCount == 0)
+				|| (start.endsWith("Y") && yCount != 0 && bCount == 0 && rCount == 0)
+				|| (start.endsWith("R") && rCount != 0 && yCount == 0 && gCount == 0)
+				|| (start.endsWith("G") && rCount != 0 && yCount == 0 && gCount == 0))
 
-		if (((start.endsWith("Y") || start.endsWith("B")) && yCount != 0 && bCount == 0 && rCount == 0) || ((start.endsWith("R") || start.endsWith("G")) && rCount != 0 && yCount == 0 && gCount == 0))
-			return start;
+			return maxStr = start;
 
 		if (start.endsWith("B") || start.endsWith("Y")) {
 			while(bCount > 0) {
@@ -94,8 +94,12 @@ public class RubyNecklace {
 
 		if (bCount != 0 || rCount != 0 || yCount != 0 || gCount != 0) {
 			appendRule(start);
+		} else {
+			System.out.println("Appendrule start : " + start);
+			maxStr = start;
 		}
-		return start;
+		return maxStr;
+
 	}
 
 	public static String startInput(String start, String colour) {
@@ -103,10 +107,10 @@ public class RubyNecklace {
 			colour = "Blue";
 		else if (rCount != 0)
 			colour = "Red";
-		else if (yCount != 0)
-			colour = "Yellow";
 		else if (gCount != 0)
 			colour = "Green";
+		else if (yCount != 0)
+			colour = "Yellow";
 
 		switch (colour) {
 
