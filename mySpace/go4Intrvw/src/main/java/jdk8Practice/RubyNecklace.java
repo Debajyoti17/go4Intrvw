@@ -38,7 +38,7 @@ r 147
 Output: 990
 
 
-START:	Blue blue   |  blue red 
+START:	Blue blue   |  blue red
 
 START:	red green  |  red yellow
 
@@ -62,7 +62,7 @@ public class RubyNecklace {
 		if (maxStr.length() <= start.length())
 			maxStr = start;
 
-		System.out.println("Output : " + maxStr + "  length---------: " + maxStr.length());
+		System.out.println("Output : " + maxStr + "  String length-------: " + maxStr.length());
 	}
 
 	private static String appendRule(String start) {
