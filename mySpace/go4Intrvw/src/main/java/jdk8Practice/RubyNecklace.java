@@ -47,7 +47,7 @@ yellow blue  | yellow red
 green green  | green yellow
 */
 public class RubyNecklace {
-	static int bCount = 0, rCount = 1, yCount = 1, gCount = 2;
+	static int bCount = 1, rCount = 1, yCount = 1, gCount = 0;
 	static String maxStr = "", colour = "";
 
 	public static void main(String[] args) {
@@ -57,34 +57,36 @@ public class RubyNecklace {
 		if (bCount != 0 || rCount != 0 || yCount != 0 || gCount != 0)
 			start = startInput(start, colour);
 		System.out.println("start : " + start);
-		start = appendRule(start);
+		String finalStr = appendRule(start);
 
-		if (maxStr.length() <= start.length())
-			maxStr = start;
+		if (maxStr.length() <= finalStr.length())
+			maxStr = finalStr;
 
-		System.out.println("Output : " + maxStr + "  String length-------: " + maxStr.length());
+		System.out.println("Output : " + maxStr);
+		System.out.println("  String length-------: " + maxStr.length());
 	}
 
 	private static String appendRule(String start) {
 
-		if (start.endsWith("Y") && yCount != 0 && bCount == 0 && rCount == 0 && gCount == 0)
-			return start;
-		else if (start.endsWith("R") && rCount != 0 && yCount == 0 && bCount == 0 && gCount == 0)
+		if ((start.endsWith("Y") && yCount != 0 && bCount == 0 && rCount == 0 && gCount == 0) || (start.endsWith("R") && rCount != 0 && yCount == 0 && bCount == 0 && gCount == 0))
 			return start;
 
 		if (start.endsWith("B") || start.endsWith("Y")) {
-			if (bCount != 0) {
+			while(bCount > 0) {
 				start = start + "B";
 				bCount--;
-			} else if (rCount != 0) {
+			} 
+			if (rCount != 0) {
 				start = start + "R";
 				rCount--;
 			}
-		} else if (start.endsWith("R") || start.endsWith("G")) {
-			if (gCount != 0) {
+		} 
+		if (start.endsWith("R") || start.endsWith("G")) {
+			while(gCount > 0) {
 				start = start + "G";
 				gCount--;
-			} else if (yCount != 0) {
+			}
+			if (yCount != 0) {
 				start = start + "Y";
 				yCount--;
 			}
