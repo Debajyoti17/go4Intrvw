@@ -1,5 +1,9 @@
 package jdk8Practice;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
 /*It is the wedding day of Sanchi, the beautiful princess of Byteland. Her fiance Krishna is planning to gift her an awesome ruby necklace. Krishna has currently b -blue rubies, g -green rubies, r-red rubies and y -yellow rubies.
  He has to arrange the rubies next to each other in a straight line to make the necklace. But, there are a couple of rules to be followed while making this necklace:
 
@@ -47,42 +51,67 @@ yellow blue  | yellow red
 
 */
 public class RubyNecklace {
-	static int bCount = 0, rCount = 2, yCount = 2, gCount = 0;
-	static String maxStr = "", colour = "";
+	static String maxStr = "";
 
 	public static void main(String[] args) {
-		String start = "";
-		if (bCount != 0 || rCount != 0 || yCount != 0 || gCount != 0)
-			start = startInput(start, colour);
-		System.out.println("start : " + start);
-		maxStr = start;
-		String finalStr = appendRule(start);
-		
-		System.out.println("Output : " + finalStr);
-		System.out.println("  String length-------: " + finalStr.length());
+		String maxString = "";
+		List<String> colours = Arrays.asList("Blue", "Green", "Yellow", "Red");
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Enter no. of stones as blue, red, yellow, green:");
+		int blue = scanner.nextInt(), red = scanner.nextInt(), yellow = scanner.nextInt(), green = scanner.nextInt();
+		for (String colour : colours) {
+			String finalString = findMaxLenNecklace(colour, blue, red, yellow, green);
+			System.err.println(colour + "-------" + finalString);
+			if (maxString.length() < finalString.length())
+				maxString = finalString;
+		}
+		System.out.println("Final output : " + maxString);
 	}
 
-	private static String appendRule(String start) {
-		
-		if ((start.endsWith("B") && yCount != 0 && bCount == 0 && rCount == 0)
-				|| (start.endsWith("Y") && yCount != 0 && bCount == 0 && rCount == 0)
-				|| (start.endsWith("R") && rCount != 0 && yCount == 0 && gCount == 0)
-				|| (start.endsWith("G") && rCount != 0 && yCount == 0 && gCount == 0))
+	public static String findMaxLenNecklace(String colour, int bCount, int rCount, int yCount, int gCount) {
+		String start = "";
+		if (bCount != 0 || rCount != 0 || yCount != 0 || gCount != 0)
+			start = startInput(start, colour, bCount, rCount, yCount, gCount);
+		if (start.isEmpty())
+			return "";
+		System.out.println("start : " + start);
 
+		if (start == "B")
+			bCount--;
+		else if (start == "Y")
+			yCount--;
+		else if (start == "G")
+			gCount--;
+		else if (start == "R")
+			rCount--;
+
+		String finalStr = appendRule(start, bCount, rCount, yCount, gCount);
+
+		System.out.println("Output : " + finalStr);
+		System.out.println("  String length-------: " + finalStr.length());
+		return finalStr;
+	}
+
+	public static String appendRule(String start, int bCount, int rCount, int yCount, int gCount) {
+
+		if (((start.endsWith("B") || start.endsWith("Y")) && yCount != 0 && bCount == 0 && rCount == 0)
+				|| ((start.endsWith("R") || start.endsWith("G")) && rCount != 0 && yCount == 0 && gCount == 0)
+				|| (start.endsWith("B") && bCount == 0 && gCount != 0 && rCount == 0 && yCount == 0)
+				|| (start.endsWith("G") && bCount != 0 && gCount == 0 && rCount == 0 && yCount == 0))
 			return maxStr = start;
 
 		if (start.endsWith("B") || start.endsWith("Y")) {
-			while(bCount > 0) {
+			while (bCount > 0) {
 				start = start + "B";
 				bCount--;
-			} 
+			}
 			if (rCount != 0) {
 				start = start + "R";
 				rCount--;
 			}
-		} 
+		}
 		if (start.endsWith("R") || start.endsWith("G")) {
-			while(gCount > 0) {
+			while (gCount > 0) {
 				start = start + "G";
 				gCount--;
 			}
@@ -93,7 +122,7 @@ public class RubyNecklace {
 		}
 
 		if (bCount != 0 || rCount != 0 || yCount != 0 || gCount != 0) {
-			appendRule(start);
+			appendRule(start, bCount, rCount, yCount, gCount);
 		} else {
 			System.out.println("Appendrule start : " + start);
 			maxStr = start;
@@ -102,16 +131,7 @@ public class RubyNecklace {
 
 	}
 
-	public static String startInput(String start, String colour) {
-		if (bCount != 0)
-			colour = "Blue";
-		else if (rCount != 0)
-			colour = "Red";
-		else if (gCount != 0)
-			colour = "Green";
-		else if (yCount != 0)
-			colour = "Yellow";
-
+	public static String startInput(String start, String colour, int bCount, int rCount, int yCount, int gCount) {
 		switch (colour) {
 
 		case "Blue": {
@@ -140,7 +160,6 @@ public class RubyNecklace {
 			}
 			break;
 		}
-
 		case "Green": {
 
 			if (gCount != 0) {
@@ -151,7 +170,6 @@ public class RubyNecklace {
 		}
 
 		}
-
 		return start;
 	}
 }
