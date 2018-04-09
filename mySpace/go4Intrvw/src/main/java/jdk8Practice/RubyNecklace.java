@@ -53,19 +53,21 @@ yellow blue  | yellow red
 public class RubyNecklace {
 	static String maxStr = "";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		String maxString = "";
-		List<String> colours = Arrays.asList("Blue", "Green", "Yellow", "Red");
+		List<String> colours = Arrays.asList("Blue", "Red", "Yellow", "Green" );
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Enter no. of stones as blue, red, yellow, green:");
 		int blue = scanner.nextInt(), red = scanner.nextInt(), yellow = scanner.nextInt(), green = scanner.nextInt();
+		if(blue > 2000 || red > 2000 || yellow > 2000 || green > 2000)
+			throw new Exception("stone count cannot be exceeded 2000");
 		for (String colour : colours) {
 			String finalString = findMaxLenNecklace(colour, blue, red, yellow, green);
-			System.err.println(colour + "-------" + finalString);
+			System.out.println(colour + "-------" + finalString);
 			if (maxString.length() < finalString.length())
 				maxString = finalString;
 		}
-		System.out.println("Final output : " + maxString);
+		System.out.println("Final output : " + maxString.length());
 	}
 
 	public static String findMaxLenNecklace(String colour, int bCount, int rCount, int yCount, int gCount) {
