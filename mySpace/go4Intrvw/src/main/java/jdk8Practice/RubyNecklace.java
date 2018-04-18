@@ -57,13 +57,13 @@ public class RubyNecklace {
 		String maxString = "";
 		List<String> colours = Arrays.asList("Blue", "Red", "Yellow", "Green" );
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Enter no. of stones as blue, red, yellow, green:");
+//		System.out.println("Enter no. of stones as blue, red, yellow, green:");
 		int blue = scanner.nextInt(), red = scanner.nextInt(), yellow = scanner.nextInt(), green = scanner.nextInt();
 		if(blue > 2000 || red > 2000 || yellow > 2000 || green > 2000)
 			throw new Exception("stone count cannot be exceeded 2000");
 		for (String colour : colours) {
 			String finalString = findMaxLenNecklace(colour, blue, red, yellow, green);
-			System.out.println(colour + "-------" + finalString);
+//			System.out.println(colour + "-------" + finalString);
 			if (maxString.length() < finalString.length())
 				maxString = finalString;
 		}
@@ -76,7 +76,7 @@ public class RubyNecklace {
 			start = startInput(start, colour, bCount, rCount, yCount, gCount);
 		if (start.isEmpty())
 			return "";
-		System.out.println("start : " + start);
+//		System.out.println("start : " + start);
 
 		if (start == "B")
 			bCount--;
@@ -89,8 +89,8 @@ public class RubyNecklace {
 
 		String finalStr = appendRule(start, bCount, rCount, yCount, gCount);
 
-		System.out.println("Output : " + finalStr);
-		System.out.println("  String length-------: " + finalStr.length());
+//		System.out.println("Output : " + finalStr);
+//		System.out.println("  String length-------: " + finalStr.length());
 		return finalStr;
 	}
 
@@ -126,7 +126,7 @@ public class RubyNecklace {
 		if (bCount != 0 || rCount != 0 || yCount != 0 || gCount != 0) {
 			appendRule(start, bCount, rCount, yCount, gCount);
 		} else {
-			System.out.println("Appendrule start : " + start);
+//			System.out.println("Appendrule start : " + start);
 			maxStr = start;
 		}
 		return maxStr;
